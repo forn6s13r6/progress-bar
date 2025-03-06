@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barre di Avanzamento senza Numeri</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    .progress-container {
+      width: 300px;
+      background-color: #ddd;
+      border-radius: 10px;
+      padding: 3px;
+      margin: 10px auto;
+    }
+    .progress-bar {
+      width: 0%;
+      height: 30px;
+      border-radius: 10px;
+      transition: width 0.3s;
+    }
+    .red { background-color: #ff5733; }
+    .blue { background-color: #3498db; }
+    .green { background-color: #2ecc71; }
+    .purple { background-color: #9b59b6; }
+    .orange { background-color: #f39c12; }
+
+    /* Contenitore per le barre (colonna) */
+    .progress-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Contenitore per i pulsanti (riga) */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Cinque Barre di Avanzamento</h2>
+
+  <div class="progress-grid">
+    <div class="progress-container"><div class="progress-bar red" id="bar1"></div></div>
+    <div class="progress-container"><div class="progress-bar blue" id="bar2"></div></div>
+    <div class="progress-container"><div class="progress-bar green" id="bar3"></div></div>
+    <div class="progress-container"><div class="progress-bar purple" id="bar4"></div></div>
+    <div class="progress-container"><div class="progress-bar orange" id="bar5"></div></div>
+  </div>
+
+  <div class="button-container">
+    <button id="btn1" onclick="updateProgress(1)">Rosso</button>
+    <button id="btn2" onclick="updateProgress(2)">Blu</button>
+    <button id="btn3" onclick="updateProgress(3)">Verde</button>
+    <button id="btn4" onclick="updateProgress(4)">Viola</button>
+    <button id="btn5" onclick="updateProgress(5)">Arancione</button>
+  </div>
+
+  <script>
+    let progresses = [0, 0, 0, 0, 0];
+    const step = 8.33; // Ogni clic aumenta dell'8.33% (12 clic totali)
+
+    function updateProgress(index) {
+      if (progresses[index - 1] < 100) {
+        progresses[index - 1] += step;
+        if (progresses[index - 1] > 100) progresses[index - 1] = 100; // Evita di superare 100%
+        
+        document.getElementById("bar" + index).style.width = progresses[index - 1] + "%";
+      }
+
+      if (progresses[index - 1] === 100) {
+        document.getElementById("btn" + index).disabled = true;
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+
